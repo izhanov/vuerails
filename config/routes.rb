@@ -3,11 +3,11 @@ Rails.application.routes.draw do
 
   namespace :dashboard do
     devise_for :staffs
-    get "welcome", to: "welcome#index"
+    root to: "welcome#page"
   end
 
   namespace :cabinet do
     devise_for :clients
-    get "welcome", to: "welcome#index"
+    root to: "welcome#page"
   end
 end
