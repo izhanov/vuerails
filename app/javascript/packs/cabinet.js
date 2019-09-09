@@ -1,7 +1,7 @@
-import Rails from 'rails-ujs'
-import Turbolinks from 'turbolinks'
-import Vue from 'vue'
-import App from 'src/cabinet/components/app.vue'
+import Rails from 'rails-ujs';
+import Turbolinks from 'turbolinks';
+import Vue from 'vue';
+import App from 'src/cabinet/components/app.vue';
 
 Rails.start();
 Turbolinks.start();

@@ -1,7 +1,9 @@
-import Turbolinks from 'turbolinks'
-import Vue from 'vue'
-import App from 'src/dashboard/components/app.vue'
+import Rails from 'rails-ujs';
+import Turbolinks from 'turbolinks';
+import Vue from 'vue';
+import App from 'src/dashboard/components/app.vue';
 
+Rails.start();
 Turbolinks.start();
 
 document.addEventListener('turbolinks:load', () => {
