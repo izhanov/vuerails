@@ -2,6 +2,6 @@
 
 module Dashboard
   class WelcomeController < BaseController
-    def index; end
+    def page; end
   end
 end

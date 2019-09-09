@@ -2,6 +2,6 @@
 
 module Cabinet
   class WelcomeController < Cabinet::BaseController
-    def index; end
+    def page; end
   end
 end
