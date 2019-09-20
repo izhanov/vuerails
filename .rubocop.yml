@@ -1,0 +1,184 @@
+# Relaxed.Ruby.Style
+## Version 2.2
+
+AllCops:
+  Exclude:
+    - "app/views/**/*"
+    - "db/**/*"
+    - "config/**/*"
+    - "node_modules/**/*"
+    - "bin/**/*"
+
+Style/Alias:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylealias
+
+Style/AsciiComments:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#styleasciicomments
+
+Style/BeginBlock:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylebeginblock
+
+Style/BlockDelimiters:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#styleblockdelimiters
+
+Style/CommentAnnotation:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylecommentannotation
+
+Style/Documentation:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#styledocumentation
+
+Layout/DotPosition:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#layoutdotposition
+
+Style/DoubleNegation:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#styledoublenegation
+
+Style/EndBlock:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#styleendblock
+
+Style/FormatString:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#styleformatstring
+
+Style/IfUnlessModifier:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#styleifunlessmodifier
+
+Style/Lambda:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylelambda
+
+Style/ModuleFunction:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylemodulefunction
+
+Style/MultilineBlockChain:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylemultilineblockchain
+
+Style/NegatedIf:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylenegatedif
+
+Style/NegatedWhile:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylenegatedwhile
+
+Style/ParallelAssignment:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#styleparallelassignment
+
+Style/PercentLiteralDelimiters:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylepercentliteraldelimiters
+
+Style/PerlBackrefs:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#styleperlbackrefs
+
+Style/Semicolon:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylesemicolon
+
+Style/SignalException:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylesignalexception
+
+Style/SingleLineBlockParams:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylesinglelineblockparams
+
+Style/SingleLineMethods:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylesinglelinemethods
+
+Layout/SpaceBeforeBlockBraces:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#layoutspacebeforeblockbraces
+
+Layout/SpaceInsideParens:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#layoutspaceinsideparens
+
+Style/SpecialGlobalVars:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylespecialglobalvars
+
+Style/StringLiterals:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylestringliterals
+
+Style/TrailingCommaInArguments:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#styletrailingcommainarguments
+
+Style/TrailingCommaInArrayLiteral:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#styletrailingcommainarrayliteral
+
+Style/TrailingCommaInHashLiteral:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#styletrailingcommainhashliteral
+
+Style/WhileUntilModifier:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylewhileuntilmodifier
+
+Style/WordArray:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#stylewordarray
+
+Lint/AmbiguousRegexpLiteral:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#lintambiguousregexpliteral
+
+Lint/AssignmentInCondition:
+  Enabled: true
+  StyleGuide: https://relaxed.ruby.style/#lintassignmentincondition
+
+Style/StringLiterals:
+  Enabled: false
+  EnforcedStyle: double_quotes
+
+Layout/SpaceInLambdaLiteral:
+  Enabled: true
+  EnforcedStyle: require_space
+
+Metrics/AbcSize:
+  Enabled: true
+
+Metrics/BlockNesting:
+  Enabled: true
+
+Metrics/ClassLength:
+  Enabled: true
+
+Metrics/ModuleLength:
+  Enabled: true
+
+Metrics/CyclomaticComplexity:
+  Enabled: true
+
+Metrics/LineLength:
+  Enabled: true
+
+Metrics/MethodLength:
+  Enabled: true
+
+Metrics/ParameterLists:
+  Enabled: true
+
+Metrics/PerceivedComplexity:
+  Enabled: true
+
+Metrics/BlockLength:
+  Enabled: true

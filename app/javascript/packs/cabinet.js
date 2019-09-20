@@ -1,18 +1,19 @@
 import Rails from 'rails-ujs';
 import Turbolinks from 'turbolinks';
 import Vue from 'vue';
-import App from 'src/cabinet/components/app.vue';
+import Navbar from 'src/cabinet/components/navbar.vue';
+
+import "src/cabinet/scss/main.scss";
 
 Rails.start();
 Turbolinks.start();
 
 document.addEventListener('turbolinks:load', () => {
-  const app = new Vue({
-    render: h => h(App)
+  const navbar = new Vue({
+    render: h => h(Navbar)
   }).$mount()
-  const root = document.getElementById("root")
 
-  root.appendChild(app.$el)
+  const header = document.getElementById("header")
 
-  console.log(app)
+  if (header) {header.appendChild(navbar.$el)}
 })
