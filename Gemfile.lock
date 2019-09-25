@@ -66,7 +66,7 @@ GEM
       rake (< 13.0)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
-    devise (4.7.0)
+    devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
@@ -220,7 +220,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.18)
   capybara-selenium
-  devise
+  devise (>= 4.7.1)
   factory_bot_rails
   jbuilder (~> 2.5)
   letter_opener
