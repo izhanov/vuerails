@@ -8,7 +8,3 @@
     props: ["client"]
   }
 </script>
-
-<style lang="scss">
-
-</style>

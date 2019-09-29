@@ -1,26 +1,47 @@
 <template lang="pug">
-  div(class="container")
-    div(class="columns")
-      div(class="column is-6")
-        div(class="title has-text-centered has-bottom-margin") List of clients
+  q-layout(view="hhh lpr fff")
+    q-header(elevated class="bg-cyan text-white" height-hint="100")
+      q-toolbar
+        q-btn(dense flat round icon="fas fa-menorah")
 
-        clientList(v-for="client in list" :client="client.full_name" :key="client.id")
-
-      div(class="column is-6")
-        div(class="title has-text-centered") Add new client
-
-        addClientForm(@verified-data="post")
+        q-space
+        div {{ current_user }}
+        q-btn(type="a" dense flat round icon="fas fa-sign-out-alt" data-method="delete", href="/dashboard/staffs/sign_out")
+    q-drawer(show-if-above bordered)
+    q-page-container
+      div(class="column justify-center wrap")
+        div(v-if="loading" class="row justify-center")
+          div(class="col-2 items-center spinner-height-10")
+            q-spinner-gears(color="primary" size="12em")
+        div(v-else)
+          div(class="row wrap")
+            div(class="col-4")
+              addOrganizationForm(@addOrganization="createOrganization")
+            div(class="col-8")
+              organizationsTable(:data="organizations" @removeOrganization="remove")
 </template>
 
 <script >
   import addClientForm from './addClientForm';
   import clientList from './clientList';
-  import { getClientList, persistResource } from '../api/api';
+  import {
+    getClientList,
+    persistResource,
+    getOrganizations,
+    getCurrentUser,
+    addOrganization,
+    removeOrganization
+  } from '../api/api';
+  import organizationsTable from './organizationsTable';
+  import addOrganizationForm from './addOrganizationForm';
 
   export default {
     data: function() {
       return {
-        list: []
+        list: [],
+        current_user: '',
+        organizations: [],
+        loading:true,
       }
     },
     methods: {
@@ -33,9 +54,22 @@
           .catch((error) => {
             console.log(error.data.result)
           })
-          .finally(() => {
-
-          });
+        })
+      },
+      createOrganization(data) {
+        addOrganization(data).then(() => {
+          getOrganizations()
+          .then((response) => {
+            this.organizations = response.data
+          })
+        })
+      },
+      remove: function (id) {
+        removeOrganization(id).then(() => {
+          getOrganizations()
+          .then((response) => {
+            this.organizations = response.data
+          })
         })
       }
     }
@@ -45,23 +79,29 @@
       .then((response) => {
         console.log(response.data)
         this.list = response.data
+      }),
+      getOrganizations()
+      .then((response) => {
+        console.log(response.data)
+        this.organizations = response.data
+        this.loading = false
       })
       .catch((error) => {
-
+        console.log(error.data)
+      }),
+      getCurrentUser().then((response) => {
+        this.current_user = response.data.user
       })
-      .finally(() => {
-
-      });
     },
     components: {
       addClientForm,
-      clientList
+      clientList,
+      organizationsTable,
+      addOrganizationForm,
     }
   }
 </script>
 
-<style lang="scss" scoped>
-  .has-bottom-margin {
-    margin-bottom: 1.7em !important;
-  }
+<style lang="styles" scoped>
+
 </style>

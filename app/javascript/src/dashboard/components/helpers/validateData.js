@@ -1,22 +1,14 @@
 const validateFullName = (full_name) => {
-  if (!full_name || /[^\s{3,}\d]/g.test(full_name)) {
-    return true
-  }
+  return (!full_name || /[^\s{3,}\d]/g.test(full_name))
 }
 const validatePhone = (phone) => {
-  if (/[\d]+/g.test(phone)) {
-    return true
-  }
+  return (/[\d]+/g.test(phone))
 }
 const validateEmail = (email) => {
-  if (/[\w\d]+@[\w\d]+.[\w+{2-3}]+/g.test(email) || !email) {
-    return true
-  }
+  return (/[\w\d]+@[\w\d]+.[\w+{2-3}]+/g.test(email) || !email)
 }
 
 export default function validateData(data) {
-  if (validateFullName(data.full_name) && validatePhone(data.phone) && validateEmail(data.email)) {
-    return true
-  }
+  return (validateFullName(data.full_name) && validatePhone(data.phone) && validateEmail(data.email))
 }
 

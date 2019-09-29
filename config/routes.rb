@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     root to: 'welcome#page'
     get 'current_user', to: 'welcome#current_user'
 
+    resources :organizations
+
     resources :clients, only: [:index, :create]
     post "clients/verify_phone"
     post "clients/verify_email"
