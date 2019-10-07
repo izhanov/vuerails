@@ -28,6 +28,10 @@ export function destroyClient(id) {
   return axios.delete(`/dashboard/clients/${id}`)
 }
 
+export function resetClientPassword(id) {
+  return axios.post("/dashboard/clients/reset_password", {id: id})
+}
+
 export function requestVerifyPhone(phone) {
   return axios.post("/dashboard/clients/verify_phone", {phone: phone})
 }
@@ -61,7 +65,6 @@ export function getStaffs() {
 }
 
 export function getStaff(id) {
-  console.log(id, "from backend/api")
   return axios.get(`/dashboard/staffs/${id}/edit`)
 }
 
@@ -83,4 +86,8 @@ export function requestVerifyStaffPhone(phone) {
 
 export function requestVerifyStaffEmail(email) {
   return axios.post("/dashboard/staffs/verify_email", {email: email})
+}
+
+export function resetStaffPassword(id) {
+  return axios.post("/dashboard/staffs/reset_password", {id: id})
 }

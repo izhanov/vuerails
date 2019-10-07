@@ -25,6 +25,7 @@
     div(class="field is-grouped")
       div(v-if="edit" class="control")
         button(class="button is-success", @click.prevent="update") Сохранить
+        button(class="button is-danger", @click.prevent="reset_password") Сбросить пароль
       div(v-else class="control")
         button(class="button is-success", @click.prevent="submit") Добавить
 </template>
@@ -101,6 +102,9 @@
       },
       reset_verify: function (message) {
         this.verify[message] = false
+      },
+      reset_password: function () {
+        this.$emit("resetPassword", this.credentials.id)
       }
     },
     watch: {

@@ -1,17 +1,5 @@
 <template lang="pug">
   div
-    q-dialog(v-model="edit")
-      q-card(style="width: 700px; max-width: 80vw;")
-        q-card-section
-          div(class="text-h6") Редактирование
-        q-card-section
-          clientForm(
-            :forEdit="findedClient"
-            @updated-data="toUpdate"
-            @resetPassword="resetPassword"
-          )
-        q-card-actions(align="right")
-          q-btn(flat label="Oтмена" color="primary" @click.prevent="edit = false")
     q-table(
       class="my-sticky-header-table"
       title="Клиенты"
@@ -21,38 +9,24 @@
       :separator="separator"
       :pagination.sync="pagination"
       :rows-per-page-options="[10, 20]"
+      selection="multiple"
+      :selected.sync="selected"
       flat
       bordered)
-      template(v-slot:body-cell-action="client")
-        q-td
-          .columns
-            .column
-              q-btn.edit-button(size="xs" icon="fas fa-edit" @click.prevent="findClient(client.row.id)")
-            .column
-              q-btn(size="xs" color="red" icon="fas fa-trash-alt" @click="deleteClient(client.row.id)")
 </template>
 
 <script>
-  import clientForm from "./form.vue";
-
   export default {
     props: {
       data: Array,
-      findedClient: {
-        type: Object,
-        default: function () {
-          return {}
-        }
-      }
     },
     data () {
       return {
-        edit: false,
-        client: {},
         pagination: {
           rowsPerPage: 10,
           rowNumber: 10,
         },
+        selected: [],
         separator: "vertical",
         columns: [
           {
@@ -91,39 +65,9 @@
             format: val => `${val}`,
             sortable: false
           },
-         {
-            name: "action",
-            required: true,
-            label: "Действие",
-            align: "left",
-          },
         ],
       }
     },
-    components: {
-      clientForm,
-    },
-    methods: {
-      findClient(id) {
-        this.$emit("findClient", id)
-      },
-      toUpdate(data) {
-        this.$emit("updateClient", data)
-        this.edit = false
-      },
-      deleteClient(id) {
-        this.$emit("removeClient", id)
-      },
-      resetPassword(id) {
-        this.$emit("resetPassword", id)
-        this.edit = false
-      }
-    },
-    watch: {
-      findedClient: function () {
-        this.edit = true
-      }
-    }
   }
 </script>
 

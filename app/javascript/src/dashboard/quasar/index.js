@@ -34,42 +34,46 @@ import {
    QTh,
    QTr,
    QTd,
+   Notify,
  } from "quasar"
 
  Vue.use(Quasar, {
-   config: {},
-   components: {
-     QAvatar,
-     QBanner,
-     QChip,
-     QCard,
-     QCardSection,
-     QCardActions,
-     QLayout,
-     QHeader,
-     QDrawer,
-     QDialog,
-     QForm,
-     QInput,
-     QItem,
-     QItemSection,
-     QList,
-     QPageContainer,
-     QPage,
-     QBtn,
-     QToolbar,
-     QScrollArea,
-     QSpinner,
-     QSpinnerGears,
-     QSpace,
-     QTable,
-     QTh,
-     QTr,
-     QTd,
-   },
-   directives: {
-   },
-   iconSet: iconSet,
-   plugins: {
-   }
+    config: {
+      notify: "bottom-right"
+    },
+    components: {
+      QAvatar,
+      QBanner,
+      QChip,
+      QCard,
+      QCardSection,
+      QCardActions,
+      QLayout,
+      QHeader,
+      QDrawer,
+      QDialog,
+      QForm,
+      QInput,
+      QItem,
+      QItemSection,
+      QList,
+      QPageContainer,
+      QPage,
+      QBtn,
+      QToolbar,
+      QScrollArea,
+      QSpinner,
+      QSpinnerGears,
+      QSpace,
+      QTable,
+      QTh,
+      QTr,
+      QTd,
+    },
+    directives: {
+    },
+    iconSet: iconSet,
+    plugins: {
+      Notify
+    }
  })

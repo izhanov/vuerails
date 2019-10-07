@@ -5,7 +5,19 @@
         q-card-section
           div(class="text-h6") Редактирование
         q-card-section
-          staffForm(:forEdit="findedStaff" @updated-data="toUpdate")
+          staffForm(
+            :forEdit="findedStaff"
+            @updated-data="toUpdate"
+            @resetPassword="resetPassword"
+          )
+        q-card-actions(align="right")
+          q-btn(flat label="Oтмена" color="primary" @click.prevent="edit = false")
+    q-dialog(v-model="assign")
+      q-card(style="width: 700px; max-width: 80vw;")
+        q-card-section
+          div(class="text-h6") Назначить клиента
+        q-card-section
+          clientsTable(:data="clients")
         q-card-actions(align="right")
           q-btn(flat label="Oтмена" color="primary" @click.prevent="edit = false")
     q-table(
@@ -25,11 +37,14 @@
             .column
               q-btn.edit-button(size="xs" icon="fas fa-edit" @click.prevent="findStaff(staff.row.id)")
             .column
+              q-btn.edit-button(size="xs" icon="fas fa-plus" @click.prevent="assignClient(staff.row.id)")
+            .column
               q-btn(size="xs" color="red" icon="fas fa-trash-alt" @click="deleteStaff(staff.row.id)")
 </template>
 
 <script>
   import staffForm from "./form.vue";
+  import clientsTable from "./clientsTable.vue";
 
   export default {
     props: {
@@ -39,11 +54,13 @@
         default: function () {
           return {}
         }
-      }
+      },
+      clients: Array,
     },
     data () {
       return {
         edit: false,
+        assign: false,
         staff: {},
         pagination: {
           rowsPerPage: 10,
@@ -98,10 +115,10 @@
     },
     components: {
       staffForm,
+      clientsTable,
     },
     methods: {
       findStaff(id) {
-        console.log(id)
         this.$emit("findStaff", id)
       },
       toUpdate(data) {
@@ -110,6 +127,13 @@
       },
       deleteStaff(id) {
         this.$emit("removeStaff", id)
+      },
+      assignClient() {
+        this.assign = true
+      },
+      resetPassword(id) {
+        this.$emit("resetPassword", id)
+        this.edit = false
       }
     },
     watch: {

@@ -15,6 +15,7 @@
       @findClient="findClient"
       @updateClient="updateClient"
       @removeClient="removeClient"
+      @resetPassword="resetPassword"
     )
 </template>
 
@@ -24,7 +25,9 @@
     persistClient,
     getClient,
     updateClient,
-    destroyClient } from "../../backend/api.js";
+    destroyClient,
+    resetClientPassword,
+  } from "../../backend/api.js";
 
   import clientList from "./table.vue";
   import clientForm from "./form.vue";
@@ -71,6 +74,15 @@
         destroyClient(id).then(() => {
           getClientList().then((response) => {
             this.list = response.data
+          })
+        })
+      },
+      resetPassword(id) {
+        resetClientPassword(id).then(() => {
+          this.$q.notify({
+            color: "green",
+            message: "Пароль Успешно сброшен!",
+            position: "bottom-right"
           })
         })
       }

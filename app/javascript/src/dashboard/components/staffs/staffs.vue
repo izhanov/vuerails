@@ -11,10 +11,12 @@
     q-btn(color="secondary" label="Добавить" @click="form = true" class="has-margin-2")
     staffList(
       :data="list"
+      :clients="clients"
       v-bind:findedStaff="staff"
       @findStaff = "findStaff"
       @updateStaff="updateStaff"
       @removeStaff="removeStaff"
+      @resetPassword="resetPassword"
     )
 </template>
 
@@ -24,7 +26,9 @@
     persistStaff,
     getStaff,
     updateStaff,
-    destroyStaff } from "../../backend/api.js";
+    destroyStaff,
+    resetStaffPassword,
+    getClientList, } from "../../backend/api.js";
 
   import staffList from "./table.vue";
   import staffForm from "./form.vue";
@@ -34,12 +38,16 @@
       return {
         form: false,
         list: [],
+        clients: [],
         staff: {}
       }
     },
     created: function () {
       getStaffs().then((response) => {
         this.list = response.data
+      })
+      getClientList().then((response) => {
+        this.clients = response.data
       })
     },
     components: {
@@ -61,7 +69,6 @@
         })
       },
       findStaff(id) {
-        console.log(id, "from staffs component")
         getStaff(id).then((response) => {
           this.staff = response.data.staff
         })
@@ -70,6 +77,15 @@
         destroyStaff(id).then(() => {
           getStaffs().then((response) => {
             this.list = response.data
+          })
+        })
+      },
+      resetPassword(id) {
+        resetStaffPassword(id).then(() => {
+          this.$q.notify({
+            color: "green",
+            message: "Пароль Успешно сброшен!",
+            position: "bottom-right"
           })
         })
       }

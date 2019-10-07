@@ -54,6 +54,14 @@ module Dashboard
       end
     end
 
+    def reset_password
+      if Staff.find(params[:id]).update!(password: generate_password(9)[:password])
+        render json: { message: "Password reseted" }
+      else
+        render json: { message: "Error" }
+      end
+    end
+
     private
 
     def staff_params
