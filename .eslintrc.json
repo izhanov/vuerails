@@ -24,7 +24,6 @@
         "vue/arrow-spacing": "error",
         "quotes": ["error", "double"],
         "array-bracket-spacing": "error",
-        "arrow-body-style": ["error", "always"],
         "no-var": "error",
         "vue/no-dupe-keys": "error",
         "vue/no-parsing-error": ["error", {

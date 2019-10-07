@@ -10,9 +10,15 @@ Rails.application.routes.draw do
 
     resources :organizations
 
-    resources :clients, only: [:index, :create]
+    resources :staffs
+    post "staffs/verify_phone"
+    post "staffs/verify_email"
+
+    resources :clients, only: [:index, :create, :edit, :update, :destroy]
     post "clients/verify_phone"
     post "clients/verify_email"
+
+    get "/manage/*slug", to: "welcome#page"
   end
 
   namespace :cabinet do

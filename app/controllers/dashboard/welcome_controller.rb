@@ -5,7 +5,7 @@ module Dashboard
     def page; end
 
     def current_user
-      render json: {user: current_staff.email}
+      render json: { user: current_staff.email }
     end
   end
 end

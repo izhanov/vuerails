@@ -1,29 +1,29 @@
 # frozen_string_literal: true
 
 module Dashboard
-  # Manage Client entity
-  class ClientsController < BaseController
+  # Manage Staff entity
+  class StaffsController < BaseController
     layout false
     def index
-      @clients = Client.all
+      @staffs = Staff.all.where.not(id: current_staff.id)
     end
 
     def edit
-      @client = Client.find(params[:id])
+      @staff = Staff.find(params[:id])
     end
 
     def update
-      @client = Client.find(params[:id])
-      if @client
-        @client.update(client_params)
+      @staff = Staff.find(params[:id])
+      if @staff
+        @staff.update(staff_params)
       else
         render json: { error: "Error!" }
       end
     end
 
     def create
-      @client = Client.new(client_params.merge(generate_password(9)))
-      if @client.save!
+      @staff = Staff.new(staff_params.merge(generate_password(9)))
+      if @staff.save!
         render json: { result: "Ok" }
       else
         render json: { result: "Error" }
@@ -31,15 +31,15 @@ module Dashboard
     end
 
     def destroy
-      if Client.find(params[:id]).destroy
-        render json: { result: "Destoyed"}
+      if Staff.find(params[:id]).destroy
+        render json: { result: "Destoyed" }
       else
-        render json: {result: "error"}
+        render json: { result: "error" }
       end
     end
 
     def verify_phone
-      if Client.find_by(phone: params[:phone])
+      if Staff.find_by(phone: params[:phone])
         render json: { message: "Already exist!" }
       else
         render json: { message: "Ok" }
@@ -47,7 +47,7 @@ module Dashboard
     end
 
     def verify_email
-      if Client.find_by(email: params[:email])
+      if Staff.find_by(email: params[:email])
         render json: { message: "Already exist!" }
       else
         render json: { message: "Ok" }
@@ -56,8 +56,8 @@ module Dashboard
 
     private
 
-    def client_params
-      params.require(:client).permit(:full_name, :phone, :email)
+    def staff_params
+      params.require(:staff).permit(:full_name, :phone, :email)
     end
 
     def generate_password(length)
