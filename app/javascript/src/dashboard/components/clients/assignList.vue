@@ -2,8 +2,8 @@
   div
     q-table(
       class="my-sticky-header-table"
-      title="Клиенты"
-      :data="data"
+      title="Организации"
+      :data="organizations"
       :columns="columns"
       row-key="id"
       :separator="separator"
@@ -13,15 +13,18 @@
       :selected.sync="selected"
       flat
       bordered)
+    q-btn(label="Прикрепить" color="green" @click.prevent="assign")
 </template>
 
 <script>
   export default {
     props: {
-      data: Array,
+      organizations: Array,
+      client_id: Number,
     },
     data () {
       return {
+        edit: false,
         pagination: {
           rowsPerPage: 10,
           rowNumber: 10,
@@ -39,40 +42,33 @@
             sortable: true
           },
           {
-            name: "full_name",
+            name: "title",
             required: true,
-            label: "Ф.И.О",
+            label: "Название",
             align: "left",
-            field: row => row.full_name,
+            field: row => row.title,
             format: val => `${val}`,
-            sortable: false
+            sortable: true
           },
           {
-            name: "phone",
+            name: "kind",
             required: true,
-            label: "Телефон",
+            label: "Тип",
             align: "left",
-            field: row => row.phone,
+            field: row => row.kind,
             format: val => `${val}`,
-            sortable: false
-          },
-          {
-            name: "email",
-            required: true,
-            label: "Email",
-            align: "left",
-            field: row => row.email,
-            format: val => `${val}`,
-            sortable: false
-          },
+            sortable: true,
+          }
         ],
       }
     },
+    methods: {
+      assign() {
+        this.$emit("assignClient", {
+          organization: this.selected, client_id: this.client_id
+        })
+      }
+    }
   }
-</script>
 
-<style lang="styl">
-  .edit-button
-    color #fff
-    background-color #00FF7F
-</style>
+</script>

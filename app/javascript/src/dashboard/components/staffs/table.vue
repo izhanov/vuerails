@@ -12,14 +12,6 @@
           )
         q-card-actions(align="right")
           q-btn(flat label="Oтмена" color="primary" @click.prevent="edit = false")
-    q-dialog(v-model="assign")
-      q-card(style="width: 700px; max-width: 80vw;")
-        q-card-section
-          div(class="text-h6") Назначить клиента
-        q-card-section
-          clientsTable(:data="clients")
-        q-card-actions(align="right")
-          q-btn(flat label="Oтмена" color="primary" @click.prevent="edit = false")
     q-table(
       class="my-sticky-header-table"
       title="Клиенты"
@@ -37,14 +29,11 @@
             .column
               q-btn.edit-button(size="xs" icon="fas fa-edit" @click.prevent="findStaff(staff.row.id)")
             .column
-              q-btn.edit-button(size="xs" icon="fas fa-plus" @click.prevent="assignClient(staff.row.id)")
-            .column
               q-btn(size="xs" color="red" icon="fas fa-trash-alt" @click="deleteStaff(staff.row.id)")
 </template>
 
 <script>
   import staffForm from "./form.vue";
-  import clientsTable from "./clientsTable.vue";
 
   export default {
     props: {
@@ -115,7 +104,6 @@
     },
     components: {
       staffForm,
-      clientsTable,
     },
     methods: {
       findStaff(id) {

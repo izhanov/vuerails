@@ -12,10 +12,12 @@
     clientList(
       v-bind:data="list"
       v-bind:findedClient="client"
+      :organizations="organizations"
       @findClient="findClient"
       @updateClient="updateClient"
       @removeClient="removeClient"
       @resetPassword="resetPassword"
+      @persistAssign="persistAssign"
     )
 </template>
 
@@ -27,6 +29,8 @@
     updateClient,
     destroyClient,
     resetClientPassword,
+    getOrganizations,
+    assignClient,
   } from "../../backend/api.js";
 
   import clientList from "./table.vue";
@@ -37,11 +41,13 @@
       return {
         form: false,
         list: [],
-        client: {}
+        client: {},
+        organizations: [],
       }
     },
     created: function () {
-      getClientList().then((response) => {this.list = response.data })
+      getClientList().then((response) => {this.list = response.data }),
+      getOrganizations().then((response) => this.organizations = response.data)
     },
     components: {
       clientList,
@@ -82,6 +88,15 @@
           this.$q.notify({
             color: "green",
             message: "Пароль Успешно сброшен!",
+            position: "bottom-right"
+          })
+        })
+      },
+      persistAssign(data) {
+        assignClient(data).then(() => {
+          this.$q.notify({
+            color: "green",
+            message: "Клиент успешно прикреплен!",
             position: "bottom-right"
           })
         })

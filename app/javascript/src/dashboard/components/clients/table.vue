@@ -12,6 +12,14 @@
           )
         q-card-actions(align="right")
           q-btn(flat label="Oтмена" color="primary" @click.prevent="edit = false")
+    q-dialog(v-model="assigning")
+          q-card(style="width: 700px; max-width: 80vw;")
+            q-card-section
+              div(class="text-h6") Прикрепить к организации
+            q-card-section
+              assignList(:organizations="organizations", :client_id="client_id", @assignClient="assignClient")
+            q-card-actions(align="right")
+              q-btn(flat label="Oтмена" color="primary" @click.prevent="assigning = false")
     q-table(
       class="my-sticky-header-table"
       title="Клиенты"
@@ -29,11 +37,14 @@
             .column
               q-btn.edit-button(size="xs" icon="fas fa-edit" @click.prevent="findClient(client.row.id)")
             .column
+              q-btn.edit-button(size="xs" icon="fas fa-plus" @click.prevent="addToOrganization(client.row.id)")
+            .column
               q-btn(size="xs" color="red" icon="fas fa-trash-alt" @click="deleteClient(client.row.id)")
 </template>
 
 <script>
   import clientForm from "./form.vue";
+  import assignList from "./assignList.vue";
 
   export default {
     props: {
@@ -43,12 +54,15 @@
         default: function () {
           return {}
         }
-      }
+      },
+      organizations: Array,
     },
     data () {
       return {
         edit: false,
+        assigning: false,
         client: {},
+        client_id: 0,
         pagination: {
           rowsPerPage: 10,
           rowNumber: 10,
@@ -102,6 +116,7 @@
     },
     components: {
       clientForm,
+      assignList,
     },
     methods: {
       findClient(id) {
@@ -117,6 +132,14 @@
       resetPassword(id) {
         this.$emit("resetPassword", id)
         this.edit = false
+      },
+      addToOrganization(id) {
+        this.assigning = true
+        this.client_id = id
+      },
+      assignClient(data) {
+        this.$emit("persistAssign", data)
+        this.assigning = false
       }
     },
     watch: {

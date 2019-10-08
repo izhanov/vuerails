@@ -28,6 +28,10 @@ export function destroyClient(id) {
   return axios.delete(`/dashboard/clients/${id}`)
 }
 
+export function assignClient(data) {
+  return axios.post("/dashboard/clients/assign_to_organizations", {resources: data})
+}
+
 export function resetClientPassword(id) {
   return axios.post("/dashboard/clients/reset_password", {id: id})
 }

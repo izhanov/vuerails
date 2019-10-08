@@ -11,7 +11,6 @@
     q-btn(color="secondary" label="Добавить" @click="form = true" class="has-margin-2")
     staffList(
       :data="list"
-      :clients="clients"
       v-bind:findedStaff="staff"
       @findStaff = "findStaff"
       @updateStaff="updateStaff"

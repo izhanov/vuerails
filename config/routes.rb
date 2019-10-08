@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     post "clients/verify_phone"
     post "clients/verify_email"
     post "clients/reset_password"
+    post "clients/assign_to_organizations"
 
     get "/manage/*slug", to: "welcome#page"
   end
