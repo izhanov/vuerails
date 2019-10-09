@@ -5,12 +5,16 @@
         q-card-section
           div(class="text-h6") Редактирование
         q-card-section
-          organizationForm(:forEdit="findedOrganization" @update-data="toUpdate")
+          equipmentForm(
+            :forEdit="findedEquipment"
+            :organizations="organizationsList"
+            @updated-data="toUpdate"
+          )
         q-card-actions(align="right")
           q-btn(flat label="Oтмена" color="primary" @click.prevent="edit = false")
     q-table(
       class="my-sticky-header-table"
-      title="Организации"
+      title="Оборудование"
       :data="data"
       :columns="columns"
       row-key="id"
@@ -19,22 +23,22 @@
       :rows-per-page-options="[10, 20]"
       flat
       bordered)
-      template(v-slot:body-cell-action="organization")
+      template(v-slot:body-cell-action="equipment")
         q-td
           .columns
             .column
-              q-btn.edit-button(size="xs" icon="fas fa-edit" @click.prevent="findOrganization(organization.row.id)")
+              q-btn.edit-button(size="xs" icon="fas fa-edit" @click.prevent="findEquipment(equipment.row.id)")
             .column
-              q-btn(size="xs" color="red" icon="fas fa-trash-alt" @click="deleteOrganization(organization.row.id)")
+              q-btn(size="xs" color="red" icon="fas fa-trash-alt" @click="deleteEquipment(equipment.row.id)")
 </template>
 
 <script>
-  import organizationForm from "./form.vue";
+  import equipmentForm from "./form.vue";
 
   export default {
     props: {
       data: Array,
-      findedOrganization: {
+      findedEquipment: {
         type: Object,
         default: function () {
           return {}
@@ -44,6 +48,8 @@
     data () {
       return {
         edit: false,
+        equipment: {},
+        organizationsList: [],
         pagination: {
           rowsPerPage: 10,
           rowNumber: 10,
@@ -62,11 +68,11 @@
           {
             name: "title",
             required: true,
-            label: "Название",
+            label: "Нименование",
             align: "left",
             field: row => row.title,
             format: val => `${val}`,
-            sortable: true
+            sortable: false
           },
           {
             name: "kind",
@@ -75,27 +81,18 @@
             align: "left",
             field: row => row.kind,
             format: val => `${val}`,
-            sortable: true
+            sortable: false
           },
           {
-            name: "iin",
+            name: "serail_number",
             required: true,
-            label: "ИНН",
+            label: "Email",
             align: "left",
-            field: row => row.iin,
+            field: row => row.serial_number,
             format: val => `${val}`,
-            sortable: true
+            sortable: false
           },
          {
-            name: "ogrn",
-            required: true,
-            label: "ОГРН",
-            align: "left",
-            field: row => row.ogrn,
-            format: val => `${val}`,
-            sortable: true
-          },
-          {
             name: "action",
             required: true,
             label: "Действие",
@@ -104,29 +101,31 @@
         ],
       }
     },
+    components: {
+      equipmentForm,
+    },
     methods: {
-      findOrganization(id) {
-        this.$emit("findOrganization", id)
+      findEquipment(id) {
+        this.$emit("findEquipment", id)
       },
       toUpdate(data) {
-        this.$emit("updateOrganization", data)
+        this.$emit("updateEquipment", data)
         this.edit = false
       },
-      deleteOrganization(id) {
-        this.$emit("removeOrganization", id)
+      deleteEquipment(id) {
+        this.$emit("removeEquipment", id)
       },
     },
     watch: {
-      findedOrganization: function () {
+      findedEquipment: function () {
         this.edit = true
       }
-    },
-    components: {
-      organizationForm,
     }
   }
 </script>
 
-<style type="styles">
-
+<style lang="styl">
+  .edit-button
+    color #fff
+    background-color #00FF7F
 </style>

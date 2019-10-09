@@ -24,7 +24,8 @@
     persistOrganization,
     getOrganization,
     updateOrganization,
-    destroyOrganization } from "../../backend/api.js";
+    destroyOrganization,
+    } from "../../backend/api.js";
 
   import organizationList from "./table.vue";
   import organizationForm from "./form.vue";
@@ -71,7 +72,7 @@
             this.list = response.data
           })
         })
-      }
+      },
     }
   }
 </script>

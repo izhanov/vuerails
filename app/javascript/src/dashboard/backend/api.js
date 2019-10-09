@@ -32,6 +32,10 @@ export function assignClient(data) {
   return axios.post("/dashboard/clients/assign_to_organizations", {resources: data})
 }
 
+export function assignEquipment(data) {
+  return axios.post("/dashboard/organizations/assign_to_organizations", {resources: data})
+}
+
 export function resetClientPassword(id) {
   return axios.post("/dashboard/clients/reset_password", {id: id})
 }
@@ -94,4 +98,24 @@ export function requestVerifyStaffEmail(email) {
 
 export function resetStaffPassword(id) {
   return axios.post("/dashboard/staffs/reset_password", {id: id})
+}
+
+export function getEquipmentList() {
+  return axios.get("/dashboard/equipment")
+}
+
+export function getEquipment(id) {
+  return axios.get(`/dashboard/equipment/${id}/edit`)
+}
+
+export function updateEquipment(data) {
+  return axios.patch(`/dashboard/equipment/${data.id}`, {equipment: data})
+}
+
+export function persistEquipment(data) {
+  return axios.post("/dashboard/equipment", {equipment: data})
+}
+
+export function destroyEquipment(id) {
+  return axios.delete(`/dashboard/equipment/${id}`)
 }

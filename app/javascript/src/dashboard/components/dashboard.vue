@@ -25,7 +25,9 @@
           q-item(clickable)
             q-item-section
               router-link(to="/dashboard/manage/staffs" exact) Сотрудники
-
+          q-item(clickable)
+            q-item-section
+              router-link(to="/dashboard/manage/equipment" exact) Оборудование
     q-page-container
       div
         div(v-if="loading")

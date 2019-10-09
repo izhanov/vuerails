@@ -37,6 +37,15 @@ module Dashboard
       end
     end
 
+    def assign_to_organizations
+      organizations = params[:resources][:organization]
+      client_id = params[:resources][:client_id]
+      organizations_id = organizations.map {|el| el[:id]}
+      organizations_id.each do |id|
+        ClientsInOrganization.create(client_id: client_id, organization_id: id)
+      end
+    end
+
     private
 
     def organization_params

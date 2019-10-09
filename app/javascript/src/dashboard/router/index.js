@@ -6,6 +6,7 @@ Vue.use(VueRouter)
 import Clients from "../components/clients/clients.vue";
 import Organizations from "../components/organizations/organizations.vue";
 import Staffs from "../components/staffs/staffs.vue";
+import Equipment from "../components/equipment/equipment.vue";
 
 export default new VueRouter({
   mode: "history",
@@ -18,5 +19,7 @@ export default new VueRouter({
       name: "organizations"
     },
     { path: "/dashboard/manage/staffs", component: Staffs, name: "staffs" },
+    { path: "/dashboard/manage/equipment", component: Equipment, name: "equipment" },
+
   ]
 })

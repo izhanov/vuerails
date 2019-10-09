@@ -9,12 +9,14 @@ Rails.application.routes.draw do
     get 'current_user', to: 'welcome#current_user'
 
     resources :organizations
+    post "organizations/assign_to_organizations"
 
     resources :staffs
     post "staffs/verify_phone"
     post "staffs/verify_email"
     post "staffs/reset_password"
 
+    resources :equipment
 
     resources :clients, only: [:index, :create, :edit, :update, :destroy]
     post "clients/verify_phone"
