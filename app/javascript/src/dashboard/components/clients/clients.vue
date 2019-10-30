@@ -29,7 +29,6 @@
     updateClient,
     destroyClient,
     resetClientPassword,
-    getOrganizations,
     assignClient,
   } from "../../backend/api.js";
 
@@ -42,16 +41,18 @@
         form: false,
         list: [],
         client: {},
-        organizations: [],
       }
     },
     created: function () {
-      getClientList().then((response) => {this.list = response.data }),
-      getOrganizations().then((response) => this.organizations = response.data)
+      getClientList().then((response) => {this.list = response.data })
+      this.$store.dispatch("getList", "")
     },
     components: {
       clientList,
       clientForm,
+    },
+    computed: {
+      organizations() { return this.$store.state.organizations }
     },
     methods: {
       addClient: function(data) {

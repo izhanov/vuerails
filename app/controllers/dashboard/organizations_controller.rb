@@ -4,8 +4,13 @@ module Dashboard
   class OrganizationsController < BaseController
     layout false
     def index
-      @organizations = Organization.all
+      if params[:filter].blank?
+        @organizations = Organization.all
+      else
+        @organizations = Organization.search(params[:filter])
+      end
     end
+
 
     def create
       @organization = Organization.new(organization_params)
@@ -49,7 +54,7 @@ module Dashboard
     private
 
     def organization_params
-      params.require(:organization).permit(:title, :kind, :iin, :ogrn)
+      params.require(:organization).permit(:title, :kind, :iin, :ogrn, :filter)
     end
   end
 end

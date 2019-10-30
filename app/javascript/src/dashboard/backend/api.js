@@ -48,8 +48,8 @@ export function requestVerifyEmail(email) {
   return axios.post("/dashboard/clients/verify_email", {email: email})
 }
 
-export function getOrganizations() {
-  return axios.get("/dashboard/organizations")
+export function getOrganizations(params) {
+  return axios.get(`/dashboard/organizations?filter=${params}`)
 }
 
 export function getOrganization(id) {

@@ -11,12 +11,15 @@
     q-table(
       class="my-sticky-header-table"
       title="Организации"
-      :data="data"
+      :data="list"
       :columns="columns"
+      :filter="filter"
       row-key="id"
+      ref="table"
       :separator="separator"
       :pagination.sync="pagination"
       :rows-per-page-options="[10, 20]"
+      @request="onRequest"
       flat
       bordered)
       template(v-slot:body-cell-action="organization")
@@ -26,6 +29,10 @@
               q-btn.edit-button(size="xs" icon="fas fa-edit" @click.prevent="findOrganization(organization.row.id)")
             .column
               q-btn(size="xs" color="red" icon="fas fa-trash-alt" @click="deleteOrganization(organization.row.id)")
+      template(v-slot:top-right)
+        q-input(borderless dense debounce="300" v-model="filter" placeholder="Search")
+          template(v-slot:append)
+            q-icon(name="fa fa-search")
 </template>
 
 <script>
@@ -105,6 +112,10 @@
       }
     },
     methods: {
+      onRequest(props) {
+        let filter = props.filter
+        this.$store.dispatch("getList", filter)
+      },
       findOrganization(id) {
         this.$emit("findOrganization", id)
       },
@@ -115,14 +126,51 @@
       deleteOrganization(id) {
         this.$emit("removeOrganization", id)
       },
+      refresh() {
+        this.$refs.table.requestServerInteraction()
+      }
     },
     watch: {
       findedOrganization: function () {
         this.edit = true
-      }
+      },
+      filter: function () {
+        this.$refs.table.requestServerInteraction()
+      },
+    },
+    computed: {
+      filter: {
+        get() {
+          return this.$store.state.filter
+        },
+        set(value) {
+          return this.$store.commit("updateFilter", value)
+        }
+      },
+      list() { return this.$store.state.organizations }
+    },
+    created: function () {
+      this.$store.dispatch("getList", this.filter)
     },
     components: {
       organizationForm,
+    },
+    channels: {
+      OrganizationsChannel: {
+        connected() {
+          console.log("I am connected.");
+        },
+        received(data) {
+          console.log(data)
+          this.$refs.table.requestServerInteraction()
+        },
+        disconnected() {
+        console.log("! disconnected")
+        },
+      },
+    },
+    mounted() {
+      this.$cable.subscribe({ channel: "OrganizationsChannel", room: "organizations" })
     }
   }
 </script>

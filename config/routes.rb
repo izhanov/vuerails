@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get 'current_user', to: 'welcome#current_user'
 
     resources :organizations
+    get "search", to: "organizations#search"
     post "organizations/assign_to_organizations"
 
     resources :staffs
