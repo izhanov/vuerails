@@ -8,6 +8,7 @@ gem 'devise', '>= 4.7.1'
 gem 'rails', '~> 5.2.3'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg_search'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 gem 'slim'

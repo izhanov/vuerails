@@ -10,7 +10,6 @@
           q-btn(flat label="Oтмена" color="primary" @click.prevent="form = false")
     q-btn(color="secondary" label="Добавить" @click="form = true" class="has-margin-2")
     organizationList(
-      :data="list"
       v-bind:findedOrganization="organization"
       @findOrganization = "findOrganization"
       @updateOrganization="updateOrganization"
@@ -20,7 +19,6 @@
 
 <script>
   import {
-    getOrganizations,
     persistOrganization,
     getOrganization,
     updateOrganization,
@@ -34,12 +32,7 @@
     data: function () {
       return {
         form: false,
-        list: [],
-        organization: {}
       }
-    },
-    created: function () {
-      getOrganizations().then((response) => {this.list = response.data })
     },
     components: {
       organizationList,
@@ -48,31 +41,30 @@
     methods: {
       addOrganization(data) {
         persistOrganization(data).then(() => {
-          getOrganizations().then((response) => {this.list = response.data})
+          this.$store.dispatch("getList", "")
           this.form = false
         })
       },
       updateOrganization(data) {
-        console.log(data)
         updateOrganization(data).then(() => {
-          console.log(data)
-          getOrganizations().then((response) => {
-            this.list = response.data
-          })
+          this.$store.dispatch("getList", "")
         })
       },
       findOrganization(id) {
         getOrganization(id).then((response) => {
-          this.organization = response.data.organization
+          this.$store.commit("updateOrganization", response.data.organization)
         })
       },
       removeOrganization(id) {
         destroyOrganization(id).then(() => {
-          getOrganizations().then((response) => {
-            this.list = response.data
-          })
+          this.$store.dispatch("getList", "")
         })
       },
+    },
+    computed: {
+      organization() {
+        return this.$store.state.organization
+      }
     }
   }
 </script>

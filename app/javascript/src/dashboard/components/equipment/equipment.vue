@@ -5,7 +5,7 @@
         q-card-section
           div(class="text-h6") Добавить Оборудование
         q-card-section
-          equipmentForm(@addEquipment="addEquipment", :organizations="organizationsList")
+          equipmentForm(@addEquipment="addEquipment", :organizations="organizations")
         q-card-actions(align="right")
           q-btn(flat label="Oтмена" color="primary" @click.prevent="form = false")
     q-btn(color="secondary" label="Добавить" @click="form = true" class="has-margin-2")
@@ -37,16 +37,18 @@
         form: false,
         list: [],
         equipment: {},
-        organizationsList: [],
       }
     },
     created: function () {
       getEquipmentList().then((response) => this.list = response.data)
-      getOrganizations().then((response) => this.organizationsList = response.data)
+      getOrganizations().then(() => this.organizationsList = this.$store.dispatch("getList", ""))
     },
     components: {
       equipmentList,
       equipmentForm,
+    },
+    computed: {
+      organizations() { return this.$store.state.organizations }
     },
     methods: {
       addEquipment: function(data) {
